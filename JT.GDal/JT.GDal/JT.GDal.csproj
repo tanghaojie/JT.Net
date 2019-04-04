@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{705D974F-07B7-42ED-B7C3-F6175A2FBE7A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JT.GDal</RootNamespace>
+    <AssemblyName>JT.GDal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GdalConfiguration\GdalConfiguration.cs" />
+    <Compile Include="GdalConfiguration\GdalNativeConfiguration.cs" />
+    <Compile Include="Standards\GdalDriverNames.cs" />
+    <Compile Include="JTGdalInstaller.cs" />
+    <Compile Include="Standards\OgrDriverNames.cs" />
+    <Compile Include="Extensions\JTGDalExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapeFile\ShapeFile.cs" />
+    <Compile Include="Standards\SpatialReferences.cs" />
+    <Compile Include="Standards\WellKnownTextType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GdalConfiguration\GdalConfiguration.vb" />
+    <Content Include="GdalConfiguration\GdalNativeConfiguration.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="gdalconst_csharp">
+      <HintPath>..\..\libs\GDAL.2.3.2\lib\net40\gdalconst_csharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gdal_csharp">
+      <HintPath>..\..\libs\GDAL.2.3.2\lib\net40\gdal_csharp.dll</HintPath>
+    </Reference>
+    <Reference Include="JT.Enum.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\debug\JT.Enum.Extension.dll</HintPath>
+    </Reference>
+    <Reference Include="ogr_csharp">
+      <HintPath>..\..\libs\GDAL.2.3.2\lib\net40\ogr_csharp.dll</HintPath>
+    </Reference>
+    <Reference Include="osr_csharp">
+      <HintPath>..\..\libs\GDAL.2.3.2\lib\net40\osr_csharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)gdal" md "$(TargetDir)gdal"
+    xcopy /s /y "$(SolutionDir)\..\libs\GDAL.Native.2.3.2\build\gdal\*.*" "$(TargetDir)gdal"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
